@@ -1,0 +1,5 @@
+{
+    "terminal.explorerKind": "external",
+    "terminal.integrated.allowMnemonics": true,
+    "editor.fontFamily": "'Ubuntu mono'"
+}
