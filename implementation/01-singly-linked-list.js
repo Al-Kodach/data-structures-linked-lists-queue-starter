@@ -14,20 +14,18 @@ class SinglyLinkedList {
 
     addToHead(val) {
         // Add node of val to head of linked list
-        let node = new SinglyLinkedList(val);
+        const newNode = new SinglyLinkedNode(val);
 
-        // add to head if head is empty and return
         if (!this.head) {
-            this.head = node;
-            this.length++;
-            return;
+            this.head = newNode;
+        } else {
+            newNode.next = this.head;
+            this.head = newNode;
         }
 
-        // link new node to head and assign new node to head
-        node.next = this.head;
-        this.head = node;
         this.length++;
 
+        return this;
         // Write your hypothesis on the time complexity of this method here
         /*
             visitiong each method in is O(1) constant
@@ -49,28 +47,33 @@ class SinglyLinkedList {
         if (!this.head) {
             this.head = newNode;
             this.length++;
-            return;
-        }
+        } else {
 
-        // traverse each node to find the first node which is the last
-        let curr = this.head;
-        while (curr) {
+            // traverse each node to find the first node which is the last
+            let curr = this.head;
+            while (curr) {
 
-            if (!curr.next) {
-                curr.next = newNode;
-                this.length++
-                return;
+                if (!curr.next) {
+                    curr.next = newNode;
+                    this.length++
+                    return this;
+                }
+                curr = curr.next;
             }
-            curr = curr.next;
         }
+
+
+        return this;
     }
 
     removeFromHead() {
         // Remove node at head
+        const head = this.head;
+
         if (this.head) {
-            this.head = this.head.next;
+            this.head = this.head.next || null;
             this.length--;
-            return;
+            return head;
         }
 
         // Write your hypothesis on the time complexity of this method here
@@ -79,29 +82,41 @@ class SinglyLinkedList {
 
     removeFromTail() {
         // Remove node at tail
-        if (!this.head) return null;
+        let tail;
 
-        // tranverse each node to find the last
-        let cur = this.head;
-        while (cur) {
-            // if curr is not linked, that is the last node
-            if (!cur.next.next) {
-                cur.next = null;
-                this.length--;
-                return;
+        if (this.head) {
+
+            if (this.length === 1) {
+                tail = this.head;
+                this.head = null;
+            } else {
+                let penultimate = this.head;
+
+                for (let i = 1; i < this.length - 1; i++) {
+                    penultimate = penultimate.next;
+                }
+
+                tail = penultimate.next;
+                penultimate.next = null;
             }
-            cur = cur.next;
+
+            this.length--;
+            return tail;
         }
 
         // Write your hypothesis on the time complexity of this method here
-        // visiting each node in the link is O(n), time complexity in total is O(n)
+        // time complexity is O(1);
+
     }
 
     peekAtHead() {
         // Return value of head node
-        return this.head.val || null;
+        return this.head ? this.head.value : undefined;
+
         // Write your hypothesis on the time complexity of this method here
-        // visited only the first node, hence tiem complexity is O(1);
+        // time complexity is O(1);
+
+
     }
 
     print() {
@@ -109,11 +124,10 @@ class SinglyLinkedList {
         let cur = this.head;
 
         while (cur) {
-            console.stdout.write(`${cur.val} -> `);
+            console.log(cur.value);
             cur = cur.next;
         }
 
-        console.log('Null');
         // Write your hypothesis on the time complexity of this method here
         // visited every every node in the list is O(1), hence tiem complexity is O(1);
     }
