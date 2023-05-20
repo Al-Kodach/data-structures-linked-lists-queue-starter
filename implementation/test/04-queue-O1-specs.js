@@ -27,3 +27,22 @@ describe('Queue', () => {
     });
   });
 });
+ 
+/* 
+Queue {
+  head: SinglyLinkedNode {
+    value: 'A',
+    next: SinglyLinkedNode { value: 'B', next: [SinglyLinkedNode] }
+  },
+  tail: SinglyLinkedNode { value: 'C', next: null },
+  length: 3
+}
+
+
+  Queue
+    Queue Behavior
+      ✔ Should enqueue and dequeue in O(1) time
+
+
+  1 passing (22ms)
+*/
